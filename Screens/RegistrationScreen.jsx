@@ -2,12 +2,13 @@ import {
   Text,
   View,
   StyleSheet,
-  ImageBackground,
+  Image,
   TouchableWithoutFeedback,
   Keyboard,
   KeyboardAvoidingView,
   TouchableOpacity,
   useWindowDimensions,
+  Platform,
 } from 'react-native';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -28,19 +29,17 @@ export const RegistrationForm = () => {
       password: '',
     },
   });
-  // const { width, height } = useWindowDimensions();
+  const { width, height } = useWindowDimensions();
   const onSubmit = (data) => console.log(data);
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      {/* <View style={styles.container}> */}
-      <ImageBackground
-        source={require('../assets/images/bg.png')}
-        style={styles.bgImage}
-      >
-        <KeyboardAvoidingView
-          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        >
+      <View style={{ ...styles.container, width: width, height: height }}>
+        <Image
+          source={require('../assets/images/bg.png')}
+          style={{ ...styles.bgImage, width: width, height: height }}
+        />
+        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : ''}>
           <View style={styles.formContainer}>
             <AvatarContainer />
             <Text style={styles.title}>Реєстрація</Text>
@@ -71,20 +70,22 @@ export const RegistrationForm = () => {
             </TouchableOpacity>
           </View>
         </KeyboardAvoidingView>
-      </ImageBackground>
-      {/* </View> */}
+      </View>
     </TouchableWithoutFeedback>
   );
 };
 
 const styles = StyleSheet.create({
-  // container: {
-  //   flex: 1,
-  // },
-  bgImage: {
+  container: {
     flex: 1,
-    resizeMode: 'cover',
     justifyContent: 'flex-end',
+  },
+  bgImage: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    // flex: 1,
+    // resizeMode: 'cover',
   },
   title: {
     // fontFamily: 'Roboto',
