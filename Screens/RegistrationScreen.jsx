@@ -9,28 +9,37 @@ import {
   TouchableOpacity,
   useWindowDimensions,
   Platform,
+  TextInput,
 } from 'react-native';
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
 import { AvatarContainer } from './components/AvatarContainer';
-import { FormInput } from './components/FormInput';
-import { CustomBtn } from './components/CustomBtn';
 
 export const RegistrationForm = () => {
-  const [isShownKeyboard, setIsShownKeyboard] = useState(false);
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    defaultValues: {
-      login: '',
-      email: '',
-      password: '',
-    },
-  });
+  const formInitalState = {
+    login: '',
+    email: '',
+    password: '',
+  };
+  const [formState, setFormState] = useState(formInitalState);
+  const [focusedInput, setFocusedInput] = useState(null);
   const { width, height } = useWindowDimensions();
-  const onSubmit = (data) => console.log(data);
+
+  const handleChange = (name, value) => {
+    setFormState({ ...formState, [name]: value });
+  };
+
+  const handleFocus = (name) => {
+    setFocusedInput(name);
+  };
+
+  const handleBlur = () => {
+    setFocusedInput(null);
+  };
+
+  const handleSubmit = (e) => {
+    console.log(formState);
+    setFormState(formInitalState);
+  };
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -39,32 +48,52 @@ export const RegistrationForm = () => {
           source={require('../assets/images/bg.png')}
           style={{ ...styles.bgImage, width: width, height: height }}
         />
-        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : ''}>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          keyboardVerticalOffset={-180}
+        >
           <View style={styles.formContainer}>
             <AvatarContainer />
             <Text style={styles.title}>Реєстрація</Text>
-            <FormInput
-              inputName='Login'
-              control={control}
-              onFocus={() => setIsShownKeyboard(true)}
+            <TextInput
+              name='login'
+              placeholder='Login'
+              onBlur={handleBlur}
+              onChangeText={(value) => handleChange('login', value)}
+              onFocus={() => handleFocus('login')}
+              value={formState.login}
+              style={[
+                styles.input,
+                focusedInput === 'login' && styles.focusedInput,
+              ]}
             />
-            {errors.login && <Text>This field is required.</Text>}
-            <FormInput
-              inputName='Email'
-              control={control}
-              onFocus={() => setIsShownKeyboard(true)}
+            <TextInput
+              name='email'
+              placeholder='Email'
+              onBlur={handleBlur}
+              onChangeText={(value) => handleChange('email', value)}
+              onFocus={() => handleFocus('email')}
+              value={formState.email}
+              style={[
+                styles.input,
+                focusedInput === 'email' && styles.focusedInput,
+              ]}
             />
-            {errors.email && <Text>This field is required.</Text>}
-            <FormInput
-              inputName='Password'
-              control={control}
-              onFocus={() => setIsShownKeyboard(true)}
+            <TextInput
+              name='password'
+              placeholder='Password'
+              onBlur={handleBlur}
+              onChangeText={(value) => handleChange('password', value)}
+              onFocus={() => handleFocus('password')}
+              value={formState.password}
+              style={[
+                styles.input,
+                focusedInput === 'password' && styles.focusedInput,
+              ]}
             />
-            {errors.password && <Text>This field is required.</Text>}
-            <CustomBtn
-              btnText='Зареєструватися'
-              onPress={handleSubmit(onSubmit)}
-            />
+            <TouchableOpacity onPress={handleSubmit} style={styles.formBtn}>
+              <Text style={styles.btnText}>Зареєструватися</Text>
+            </TouchableOpacity>
             <TouchableOpacity>
               <Text style={styles.text}>Вже є акаунт? Увійти</Text>
             </TouchableOpacity>
@@ -84,8 +113,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 0,
     left: 0,
-    // flex: 1,
-    // resizeMode: 'cover',
   },
   title: {
     fontFamily: 'Roboto_500Medium',
@@ -111,5 +138,33 @@ const styles = StyleSheet.create({
     color: '#1B4371',
     fontSize: 16,
     textAlign: 'center',
+  },
+  input: {
+    marginBottom: 16,
+    padding: 16,
+    width: '100%',
+    height: 50,
+    backgroundColor: '#f6f6f6',
+    borderWidth: 1,
+    borderColor: '#E8E8E8',
+    borderRadius: 8,
+  },
+  focusedInput: {
+    borderColor: '#FF6C00',
+  },
+  formBtn: {
+    marginTop: 27,
+    marginBottom: 16,
+    backgroundColor: '#FF6C00',
+    height: 51,
+    borderRadius: 100,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  btnText: {
+    fontFamily: 'Roboto_400Regular',
+    color: '#FFFFFF',
+    fontSize: 16,
   },
 });

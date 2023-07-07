@@ -1,28 +1,32 @@
 import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import { useState } from 'react';
 import Icon from 'react-native-vector-icons/AntDesign';
-import * as ImagePicker from 'expo-image-picker';
 
 export const AvatarContainer = () => {
   const [isImage, setIsImage] = useState(false);
 
   const addAvatar = () => {
     console.log('addAvatar');
+    setIsImage(true);
   };
   const deleteAvatar = () => {
     console.log('deleteAvatar');
+    setIsImage(false);
   };
 
   return (
-    <View style={styles.avatarContainer}>
-      <TouchableOpacity style={styles.iconContainer}>
+    <TouchableOpacity
+      style={styles.avatarContainer}
+      onPress={isImage ? deleteAvatar : addAvatar}
+    >
+      <View style={styles.iconContainer}>
         {isImage ? (
-          <Icon name='close' color='#FF6C00' size={20} onPress={addAvatar} />
+          <Icon name='close' color='#FF6C00' size={20} />
         ) : (
-          <Icon name='plus' color='#FF6C00' size={20} onPress={deleteAvatar} />
+          <Icon name='plus' color='#FF6C00' size={20} />
         )}
-      </TouchableOpacity>
-    </View>
+      </View>
+    </TouchableOpacity>
   );
 };
 
@@ -39,7 +43,11 @@ const styles = StyleSheet.create({
     zIndex: 100,
   },
   iconContainer: {
+    position: 'absolute',
+    bottom: 20,
+    right: -10,
     borderRadius: 16,
-    border: '1px solid #FF6C00',
+    borderWidth: 1,
+    borderColor: '#FF6C00',
   },
 });
