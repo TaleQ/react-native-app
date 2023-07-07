@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
     // resizeMode: 'cover',
   },
   title: {
-    // fontFamily: 'Roboto',
+    fontFamily: 'Roboto_500Medium',
     fontWeight: 500,
     fontSize: 30,
     lineHeight: 35,

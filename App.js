@@ -1,22 +1,21 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
-import { RegistrationForm } from "./Screens/RegistrationScreen";
+import {
+  useFonts,
+  Roboto_400Regular,
+  Roboto_500Medium,
+  Roboto_700Bold,
+} from '@expo-google-fonts/roboto';
+import { RegistrationForm } from './Screens/RegistrationScreen';
 
 export default function App() {
-  return (
-    <RegistrationForm />
-    // <View style={styles.container}>
-    //   <Text>React Native App</Text>
-    //   <StatusBar style="auto" />
-    // </View>
-  );
-}
+  const [fontsLoaded] = useFonts({
+    Roboto_400Regular,
+    Roboto_500Medium,
+    Roboto_700Bold,
+  });
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
+  if (!fontsLoaded) {
+    return null;
+  }
+
+  return <RegistrationForm />;
+}
