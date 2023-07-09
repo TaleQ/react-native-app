@@ -22,6 +22,7 @@ export const RegistrationForm = () => {
   };
   const [formState, setFormState] = useState(formInitalState);
   const [focusedInput, setFocusedInput] = useState(null);
+  const [showPassword, setShowPassword] = useState(false);
   const { width, height } = useWindowDimensions();
 
   const handleChange = (name, value) => {
@@ -73,24 +74,33 @@ export const RegistrationForm = () => {
               onBlur={handleBlur}
               onChangeText={(value) => handleChange('email', value)}
               onFocus={() => handleFocus('email')}
+              keyboardType='email-address'
               value={formState.email}
               style={[
                 styles.input,
                 focusedInput === 'email' && styles.focusedInput,
               ]}
             />
-            <TextInput
-              name='password'
-              placeholder='Password'
-              onBlur={handleBlur}
-              onChangeText={(value) => handleChange('password', value)}
-              onFocus={() => handleFocus('password')}
-              value={formState.password}
-              style={[
-                styles.input,
-                focusedInput === 'password' && styles.focusedInput,
-              ]}
-            />
+            <View style={styles.passwordInputThumb}>
+              <TextInput
+                name='password'
+                placeholder='Password'
+                onBlur={handleBlur}
+                onChangeText={(value) => handleChange('password', value)}
+                onFocus={() => handleFocus('password')}
+                secureTextEntry={showPassword ? false : true}
+                value={formState.password}
+                style={[
+                  styles.input,
+                  focusedInput === 'password' && styles.focusedInput,
+                ]}
+              />
+              <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
+                <Text style={[styles.text, styles.showPasswordText]}>
+                  {showPassword ? 'Приховати' : 'Показати'}
+                </Text>
+              </TouchableOpacity>
+            </View>
             <TouchableOpacity onPress={handleSubmit} style={styles.formBtn}>
               <Text style={styles.btnText}>Зареєструватися</Text>
             </TouchableOpacity>
@@ -151,6 +161,14 @@ const styles = StyleSheet.create({
   },
   focusedInput: {
     borderColor: '#FF6C00',
+  },
+  passwordInputThumb: {
+    position: 'relative',
+  },
+  showPasswordText: {
+    position: 'absolute',
+    bottom: 30,
+    right: 16,
   },
   formBtn: {
     marginTop: 27,
