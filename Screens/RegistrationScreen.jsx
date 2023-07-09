@@ -14,7 +14,7 @@ import {
 import { useState } from 'react';
 import { AvatarContainer } from './components/AvatarContainer';
 
-export const RegistrationForm = () => {
+export const RegistrationScreen = () => {
   const formInitalState = {
     login: '',
     email: '',
