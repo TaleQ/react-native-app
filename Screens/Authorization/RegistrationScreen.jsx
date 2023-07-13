@@ -14,7 +14,7 @@ import {
 import { useState } from 'react';
 import { AvatarContainer } from './components/AvatarContainer';
 
-export const RegistrationScreen = () => {
+export const RegistrationScreen = ({ navigation }) => {
   const formInitalState = {
     login: '',
     email: '',
@@ -46,7 +46,7 @@ export const RegistrationScreen = () => {
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={{ ...styles.container, width: width, height: height }}>
         <Image
-          source={require('../assets/images/bg.png')}
+          source={require('../../assets/images/bg.png')}
           style={{ ...styles.bgImage, width: width, height: height }}
         />
         <KeyboardAvoidingView
@@ -104,7 +104,7 @@ export const RegistrationScreen = () => {
             <TouchableOpacity onPress={handleSubmit} style={styles.formBtn}>
               <Text style={styles.btnText}>Зареєструватися</Text>
             </TouchableOpacity>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('Login')}>
               <Text style={styles.text}>Вже є акаунт? Увійти</Text>
             </TouchableOpacity>
           </View>

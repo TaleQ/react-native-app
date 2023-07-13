@@ -13,7 +13,7 @@ import {
 } from 'react-native';
 import { useState } from 'react';
 
-export const LoginScreen = () => {
+export const LoginScreen = ({ navigation }) => {
   const formInitalState = {
     email: '',
     password: '',
@@ -44,7 +44,7 @@ export const LoginScreen = () => {
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={{ ...styles.container, width: width, height: height }}>
         <Image
-          source={require('../assets/images/bg.png')}
+          source={require('../../assets/images/bg.png')}
           style={{ ...styles.bgImage, width: width, height: height }}
         />
         <KeyboardAvoidingView
@@ -89,7 +89,9 @@ export const LoginScreen = () => {
             <TouchableOpacity onPress={handleSubmit} style={styles.formBtn}>
               <Text style={styles.btnText}>Увійти</Text>
             </TouchableOpacity>
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('Registration')}
+            >
               <Text style={styles.text}>Немає акаунту? Зареєструватися</Text>
             </TouchableOpacity>
           </View>
