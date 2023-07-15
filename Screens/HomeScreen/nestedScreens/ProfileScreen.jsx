@@ -4,47 +4,46 @@ import {
   View,
   StyleSheet,
   Image,
-  KeyboardAvoidingView,
   useWindowDimensions,
-  Platform,
   FlatList,
   TouchableOpacity,
+  SafeAreaView,
 } from 'react-native';
 import { AvatarContainer } from '../../Authorization/components/AvatarContainer';
 import { Feather } from '@expo/vector-icons';
-import newimg from '../../../assets/images/bg.png';
+// import newimg from '../../../assets/images/bg.png';
 
 export const ProfileScreen = () => {
   const { width, height } = useWindowDimensions();
   const userName = 'Natali Romanova';
-  const [posts, setPosts] = useState([
-    { title: '1', id: '1', image: newimg, comments: '3', location: 'Location' },
-    { title: '2', id: '2', image: newimg, comments: '3', location: 'Location' },
-    { title: '3', id: '3', image: newimg, comments: '3', location: 'Location' },
-  ]);
+  // const [posts, setPosts] = useState([
+  //   { title: '1', id: '1', image: newimg, comments: '3', location: 'Location' },
+  //   { title: '2', id: '2', image: newimg, comments: '3', location: 'Location' },
+  //   { title: '3', id: '3', image: newimg, comments: '3', location: 'Location' },
+  // ]);
 
-  const renderItem = ({ item }) => (
-    <View style={styles.item}>
-      <Image style={styles.postImage} source={item.image} />
-      <Text style={styles.postTitle}>{item.title}</Text>
-      <View style={styles.postInfoContainer}>
-        <TouchableOpacity
-          style={styles.commentsDataContainer}
-          onPress={() => navigation.navigate('Comments')}
-        >
-          <Feather name='message-circle' size={24} color='#BDBDBD' />
-          <Text style={styles.commentsNum}>{item.comments}</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.locationDataContainer}
-          onPress={() => navigation.navigate('Map')}
-        >
-          <Feather name='map-pin' size={24} color='#BDBDBD' />
-          <Text style={styles.locationText}>{item.location}</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
-  );
+  // const renderItem = ({ item }) => (
+  //   <View style={styles.item}>
+  //     <Image style={styles.postImage} source={item.image} />
+  //     <Text style={styles.postTitle}>{item.title}</Text>
+  //     <View style={styles.postInfoContainer}>
+  //       <TouchableOpacity
+  //         style={styles.commentsDataContainer}
+  //         onPress={() => navigation.navigate('Comments')}
+  //       >
+  //         <Feather name='message-circle' size={24} color='#BDBDBD' />
+  //         <Text style={styles.commentsNum}>{item.comments}</Text>
+  //       </TouchableOpacity>
+  //       <TouchableOpacity
+  //         style={styles.locationDataContainer}
+  //         onPress={() => navigation.navigate('Map')}
+  //       >
+  //         <Feather name='map-pin' size={24} color='#BDBDBD' />
+  //         <Text style={styles.locationText}>{item.location}</Text>
+  //       </TouchableOpacity>
+  //     </View>
+  //   </View>
+  // );
 
   return (
     <View style={{ ...styles.container, width: width, height: height }}>
@@ -52,20 +51,17 @@ export const ProfileScreen = () => {
         source={require('../../../assets/images/bg.png')}
         style={{ ...styles.bgImage, width: width, height: height }}
       />
-      <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        keyboardVerticalOffset={-180}
-      >
-        <View style={styles.profileContainer}>
-          <AvatarContainer />
-          <Text style={styles.title}>{userName}</Text>
-          {/* <FlatList
+      <View style={styles.profileContainer}>
+        <AvatarContainer />
+        <Text style={styles.title}>{userName}</Text>
+        {/* <SafeAreaView style={{ flex: 1 }}>
+          <FlatList
             data={posts}
             renderItem={renderItem}
             keyExtractor={(item) => item.id.toString()}
-          /> */}
-        </View>
-      </KeyboardAvoidingView>
+          />
+        </SafeAreaView> */}
+      </View>
     </View>
   );
 };
@@ -139,6 +135,45 @@ const styles = StyleSheet.create({
   btnText: {
     fontFamily: 'Roboto_400Regular',
     color: '#FFFFFF',
+    fontSize: 16,
+  },
+  postImage: {
+    width: '100%',
+    height: 240,
+    borderRadius: 8,
+  },
+  postTitle: {
+    marginBottom: 8,
+    marginTop: 8,
+    color: '#212121',
+    fontFamily: 'Roboto_500Medium',
+    fontSize: 16,
+  },
+  postInfoContainer: {
+    marginBottom: 32,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+  },
+  commentsDataContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  locationDataContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  commentsNum: {
+    marginLeft: 6,
+    color: '#BDBDBD',
+    fontFamily: 'Roboto_400Regular',
+    fontSize: 16,
+  },
+  locationText: {
+    marginLeft: 4,
+    color: '#212121',
+    textDecorationLine: 'underline',
+    fontFamily: 'Roboto_500Medium',
     fontSize: 16,
   },
 });
