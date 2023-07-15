@@ -13,16 +13,28 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.taleq.myapp"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
+      },
+      "package": "com.taleq.myapp",
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyBUVxZQ2k1_lCN3SXKcY2mZ8qRXHQ-BV4I"
+        }
       }
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "de95c30f-c4c3-4dc7-87ab-677374a52df1"
+      }
     }
   }
 }
