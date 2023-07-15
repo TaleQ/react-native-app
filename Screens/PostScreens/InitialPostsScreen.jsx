@@ -8,13 +8,31 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import { Feather } from '@expo/vector-icons';
-import newimg from '../../assets/images/bg.png';
+import testimg from '../../assets/images/bg.png';
 
 export const InitialPostsScreen = ({ navigation }) => {
   const [posts, setPosts] = useState([
-    { title: '1', id: '1', image: newimg, comments: '3', location: 'Location' },
-    { title: '2', id: '2', image: newimg, comments: '3', location: 'Location' },
-    { title: '3', id: '3', image: newimg, comments: '3', location: 'Location' },
+    {
+      title: 'First post',
+      id: '1',
+      image: testimg,
+      comments: '3',
+      location: 'Location',
+    },
+    {
+      title: 'Second post',
+      id: '2',
+      image: testimg,
+      comments: '4',
+      location: 'Location',
+    },
+    {
+      title: 'Third post',
+      id: '3',
+      image: testimg,
+      comments: '5',
+      location: 'Location',
+    },
   ]);
   const [avatarURL, setAvatarURL] = useState(null);
   const [userData, setUserData] = useState({

@@ -10,17 +10,40 @@ import {
   SafeAreaView,
   FlatList,
 } from 'react-native';
-import newimg from '../../../assets/images/bg.png';
 import { AntDesign } from '@expo/vector-icons';
+import testimg from '../../../assets/images/bg.png';
 
 export const CommentsScreen = () => {
-  const comments = [{ content: 'Hello' }, { content: 'Very nice' }];
+  const comments = [
+    { content: 'First comment' },
+    { content: 'Second comment' },
+  ];
+
+  const renderItem = ({ item }) => (
+    <View style={{ flexDirection: 'row', gap: 16, marginTop: 16 }}>
+      <Image source={testimg} style={styles.avatar} />
+      <View style={styles.commentBox}>
+        <Text style={styles.commentText}>{item.content}</Text>
+        <Text
+          style={{
+            fontSize: 10,
+            color: '#BDBDBD',
+            marginLeft: 'auto',
+            marginRight: 60,
+            paddingBottom: 20,
+          }}
+        >
+          {item.date}
+        </Text>
+      </View>
+    </View>
+  );
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={styles.container}>
-        <View style={styles.card}>
-          <Image style={styles.image} source={newimg} />
+        <View style={styles.photoThumb}>
+          <Image style={styles.photo} source={testimg} />
         </View>
         <View
           style={{
@@ -32,48 +55,18 @@ export const CommentsScreen = () => {
           <SafeAreaView style={{ height: 300, marginTop: 32 }}>
             <FlatList
               data={comments}
-              renderItem={({ item }) => (
-                <View style={{ flexDirection: 'row', gap: 16, marginTop: 16 }}>
-                  <Image source={newimg} style={styles.loadPhoto} />
-                  <View style={styles.commentBox}>
-                    <Text
-                      style={styles.commentText}
-                      // onPress={() => setIsShowKeyboard(true)}
-                    >
-                      {item.content}
-                    </Text>
-                    <Text
-                      style={{
-                        fontSize: 10,
-                        color: '#BDBDBD',
-                        marginLeft: 'auto',
-                        marginRight: 60,
-                        paddingBottom: 20,
-                      }}
-                    >
-                      {item.date}
-                    </Text>
-                  </View>
-                </View>
-              )}
-              keyExtractor={(item) => item.id}
+              renderItem={renderItem}
+              keyExtractor={(item) => item.content}
             />
           </SafeAreaView>
 
-          <TouchableOpacity
-            style={styles.button}
-            // style={{ ...styles.button, bottom: isShowKeyboard ? 50 : 10 }}
-          >
+          <TouchableOpacity style={styles.btn}>
             <TextInput
-              // onFocus={() => setIsShowKeyboard(true)}
-              // onBlur={() => setIsShowKeyboard(false)}
-              // value={comment}
-              // onChangeText={setComment}
               placeholder='Коментувати...'
               required
               style={{ width: '100%' }}
             />
-            <TouchableOpacity style={styles.buttonIconBox}>
+            <TouchableOpacity style={styles.btnIconBox}>
               <AntDesign name='arrowup' size={24} color='#FFFFFF' />
             </TouchableOpacity>
           </TouchableOpacity>
@@ -89,22 +82,22 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     paddingHorizontal: 16,
   },
-  card: {
+  photoThumb: {
     height: 250,
   },
-  loadPhoto: {
+  avatar: {
     width: 28,
     height: 28,
     backgroundColor: '#F6F6F6',
     borderRadius: 50,
   },
-  image: {
+  photo: {
     width: '100%',
     height: '100%',
     borderRadius: 8,
     marginTop: 32,
   },
-  button: {
+  btn: {
     position: 'absolute',
     width: '100%',
     padding: 16,
@@ -112,7 +105,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#F6F6F6',
     bottom: 50,
   },
-  buttonIconBox: {
+  btnIconBox: {
     position: 'absolute',
     bottom: '50%',
     right: 8,
